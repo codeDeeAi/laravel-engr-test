@@ -79,7 +79,7 @@ final class OrderService
 
             return [
                 "status" => true,
-                "code" => HttpStatusEnum::OK->value,
+                "code" => HttpStatusEnum::CREATED->value,
                 "data" => $order
             ];
         } catch (\Throwable $th) {
