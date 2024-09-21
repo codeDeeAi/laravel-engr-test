@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers\v1\Providers;
 
-use App\Http\Controllers\Controller;
-use App\Http\Requests\v1\Providers\SearchHmoRequest;
+use App\Enums\HttpStatusEnum;
 use Illuminate\Http\JsonResponse;
-use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 use App\Services\v1\Providers\HmoService;
+use App\Http\Requests\v1\Providers\SearchHmoRequest;
 
 class HmoController extends Controller
 {
@@ -31,7 +31,7 @@ class HmoController extends Controller
         } catch (\Throwable $th) {
 
             return response()
-                ->json(['error' => $th->getMessage()], 500);
+                ->json(['error' => $th->getMessage()], HttpStatusEnum::INTERNAL_SERVER_ERROR->value);
         }
     }
 }

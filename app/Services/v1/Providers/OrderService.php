@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Services\v1\Providers;
 
 use DateTime;
+use Illuminate\Support\Facades\DB;
 
 final class OrderService
 {
@@ -32,11 +33,19 @@ final class OrderService
         string $hmo_code,
         string $provider,
         DateTime | string $encounter_date,
+        float|int $total_items_cost,
         array $items
     ) {
+
+        DB::beginTransaction();
+
         try {
+
+            DB::commit();
             //code...
         } catch (\Throwable $th) {
+
+            DB::rollBack();
             //throw $th;
         }
     }
