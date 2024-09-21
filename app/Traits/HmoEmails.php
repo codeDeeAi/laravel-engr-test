@@ -30,7 +30,7 @@ trait HmoEmails
     public function sendOrderCreatedMail(int $order_id)
     {
         return Mail::to($this)->send(
-            (new OrderCreated($this, $order_id))
+            (new OrderCreated($order_id))
         );
     }
 }

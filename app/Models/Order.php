@@ -29,7 +29,7 @@ class Order extends Model
      */
     public function hmo(): HasOne
     {
-        return $this->hasOne(Hmo::class, 'hmo_code', 'code');
+        return $this->hasOne(Hmo::class, 'code', 'hmo_code');
     }
 
     /**

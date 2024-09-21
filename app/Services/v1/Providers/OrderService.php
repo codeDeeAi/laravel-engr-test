@@ -160,7 +160,6 @@ final class OrderService
                 : Batch::create([
                     'identifier' => $identifier,
                     'hmo_id' => $hmo->id,
-                    'order_id' => $order->id,
                     'batch_rule' => $hmo->batch_rule,
                 ]);
 

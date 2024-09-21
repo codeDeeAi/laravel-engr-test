@@ -44,7 +44,12 @@ class OrderController extends Controller
                 $items = $items
             );
 
-            return response()->json([]);
+            if (!$result['status'])
+                return response()
+                    ->json(['error' => $result['error']], $result['code']);
+
+            return response()
+                ->json(['result' => $result['data']], $result['code']);
         } catch (\Throwable $th) {
 
             return response()

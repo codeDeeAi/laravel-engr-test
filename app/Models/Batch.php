@@ -19,7 +19,6 @@ class Batch extends Model
      */
     protected $fillable = [
         'hmo_id',
-        'order_id',
         'identifier',
         'batch_rule',
     ];
