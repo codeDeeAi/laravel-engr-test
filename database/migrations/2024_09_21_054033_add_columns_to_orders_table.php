@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::table('orders', function (Blueprint $table) {
             $table->string('provider');
-            $table->foreignId('hmo_code')->constrained('hmos', 'code');
+            $table->string('hmo_code')->constrained('hmos', 'code');
             $table->decimal('total_items_cost', 10, 2)->default(0);
             $table->dateTime('encounter_date');
         });
