@@ -8,6 +8,8 @@ use App\Http\Controllers\Controller;
 use App\Services\v1\Providers\HmoService;
 use App\Http\Requests\v1\Providers\SearchHmoRequest;
 
+use function PHPUnit\Framework\isNull;
+
 class HmoController extends Controller
 {
     /**
@@ -18,16 +20,17 @@ class HmoController extends Controller
     public function search(SearchHmoRequest $request): JsonResponse
     {
         try {
-            $search = $request->search;
+
+            $search = ($request->query('search') && !isNull($request->query('search'))) ? $request->query('search') : "";
 
             $result = (new HmoService())->SearchHMO($search);
 
             if (!$result['status'])
                 return response()
-                    ->json(['result' => $result['data']], $result['code']);
+                    ->json(['error' => $result['error']], $result['code']);
 
             return response()
-                ->json(['error' => $result['error']], $result['code']);
+                ->json(['result' => $result['data']], $result['code']);
         } catch (\Throwable $th) {
 
             return response()

@@ -2,13 +2,14 @@
 
 namespace App\Models;
 
+use App\Traits\HmoEmails;
 use App\Enums\BatchRuleEnum;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class Hmo extends Model
 {
-    use HasFactory;
+    use HasFactory, HmoEmails;
 
     /**
      * The attributes that are mass assignable.

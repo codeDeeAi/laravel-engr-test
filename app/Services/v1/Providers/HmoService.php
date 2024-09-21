@@ -32,7 +32,7 @@ final class HmoService
     ): array {
         try {
 
-            $results = Hmo::where('code', 'regexp', $search)
+            $results = Hmo::where('code', 'LIKE', "%{$search}%")
                 ->select(['id', 'code'])
                 ->limit(10)
                 ->get();

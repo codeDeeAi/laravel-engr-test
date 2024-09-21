@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Services\v1\Providers;
 
 use App\Enums\BatchRuleEnum;
+use App\Enums\HttpStatusEnum;
 use App\Models\Batch;
 use App\Models\BatchOrder;
 use App\Models\Order;
@@ -32,6 +33,13 @@ final class OrderService
      *     sub_total: float,
      *     unit_price: float|int
      * }> $items
+     * 
+     * @return array{
+     *     status: bool,
+     *     code: int,
+     *     data?: \Illuminate\Database\Eloquent\Collection|array,
+     *     error?: string
+     * }
      */
     public function Create(
         string $hmo_code,
@@ -39,7 +47,7 @@ final class OrderService
         DateTime | string $encounter_date,
         float|int $total_items_cost,
         array $items
-    ) {
+    ): array {
 
         DB::beginTransaction();
 
@@ -65,13 +73,24 @@ final class OrderService
             $this->CreateBatchOrder($order, $batch);
 
             // Notify HMO (Send Email)
+            $order->hmo->sendOrderCreatedMail($order->id);
 
             DB::commit();
-            //code...
+
+            return [
+                "status" => true,
+                "code" => HttpStatusEnum::OK->value,
+                "data" => $order
+            ];
         } catch (\Throwable $th) {
 
             DB::rollBack();
-            //throw $th;
+
+            return [
+                "status" => false,
+                "code" => HttpStatusEnum::INTERNAL_SERVER_ERROR->value,
+                "error" => $th->getMessage()
+            ];
         }
     }
 
