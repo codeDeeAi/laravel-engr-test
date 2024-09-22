@@ -42,6 +42,9 @@ The UI is displayed on the root page
     MAIL_FROM_ADDRESS="hello@example.com"
     MAIL_FROM_NAME="${APP_NAME}" 
     ``
+
+    Run `php artisan key:generate` to generate your application key
+    
     Run `php artisan migrate` for DB migrations
 
     Run `php artisan db:seed HmoSeeder` to seed HMO table
