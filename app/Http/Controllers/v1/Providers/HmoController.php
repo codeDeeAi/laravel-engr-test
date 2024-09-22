@@ -8,8 +8,6 @@ use App\Http\Controllers\Controller;
 use App\Services\v1\Providers\HmoService;
 use App\Http\Requests\v1\Providers\SearchHmoRequest;
 
-use function PHPUnit\Framework\isNull;
-
 class HmoController extends Controller
 {
     /**
@@ -21,7 +19,7 @@ class HmoController extends Controller
     {
         try {
 
-            $search = ($request->query('search') && !isNull($request->query('search'))) ? $request->query('search') : "";
+            $search = ($request->query('search') && !is_null($request->query('search'))) ? $request->query('search') : "";
 
             $result = (new HmoService())->SearchHMO($search);
 
