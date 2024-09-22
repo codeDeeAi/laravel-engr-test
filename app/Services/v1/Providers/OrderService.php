@@ -8,6 +8,7 @@ use App\Enums\BatchRuleEnum;
 use App\Enums\HttpStatusEnum;
 use App\Models\Batch;
 use App\Models\BatchOrder;
+use App\Models\Hmo;
 use App\Models\Order;
 use App\Models\OrderItem;
 use DateTime;
@@ -139,13 +140,13 @@ final class OrderService
      * This method first attempts to find an existing batch by the generated identifier.
      * If a batch with that identifier does not exist, it creates a new batch with the provided order and HMO details.
      * 
-     * @param mixed $order The order object, containing information such as HMO, order ID, and batch rule.
+     * @param Order $order The order object, containing information such as HMO, order ID, and batch rule.
      * 
-     * @return mixed The found or newly created Batch model instance.
+     * @return Batch The found or newly created Batch model instance.
      * 
      * @throws \Throwable If any error occurs during the batch lookup or creation process.
      */
-    private function FindOrCreateBatch(mixed $order): mixed
+    private function FindOrCreateBatch(Order $order): Batch
     {
         try {
 
@@ -176,16 +177,16 @@ final class OrderService
      * If the HMO's batch rule is `SUBMISSION_DATE`, it uses the `encounter_date` of the order.
      * Otherwise, it uses the `created_at` date of the order.
      * 
-     * @param mixed $order The order object containing details such as provider, encounter_date, and created_at.
+     * @param Order $order The order object containing details such as provider, encounter_date, and created_at.
      * 
-     * @param mixed $hmo The hmo object containing details such as name, code, email, and batch_rule.
+     * @param Hmo $hmo The hmo object containing details such as name, code, email, and batch_rule.
      * 
      * @return string The generated batch identifier, which consists of the provider name, 
      *                the short month name (e.g., "Jan"), and the year.
      * 
      * @throws \Throwable If any error occurs during the batch identifier generation process.
      */
-    private function GenerateBatchIdentifier(mixed $order, mixed $hmo): string
+    private function GenerateBatchIdentifier(Order $order, Hmo $hmo): string
     {
         try {
 
@@ -219,14 +220,14 @@ final class OrderService
      * 
      * This method creates a new record in the `BatchOrder` table using the IDs of the provided batch and order.
      * 
-     * @param mixed $order The order object, containing the order details such as its ID.
-     * @param mixed $batch The batch object, containing the batch details such as its ID.
+     * @param Order $order The order object, containing the order details such as its ID.
+     * @param Batch $batch The batch object, containing the batch details such as its ID.
      * 
-     * @return mixed The newly created BatchOrder model instance.
+     * @return BatchOrder The newly created BatchOrder model instance.
      * 
      * @throws \Throwable If any error occurs during the BatchOrder creation process.
      */
-    private function CreateBatchOrder(mixed $order, mixed $batch): mixed
+    private function CreateBatchOrder(Order $order, Batch $batch): BatchOrder
     {
         try {
 

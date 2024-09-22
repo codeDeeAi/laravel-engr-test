@@ -42,6 +42,9 @@ The UI is displayed on the root page
     MAIL_FROM_ADDRESS="hello@example.com"
     MAIL_FROM_NAME="${APP_NAME}" 
     ``
+    Run `php artisan migrate` for DB migrations
+
+    Run `php artisan db:seed HmoSeeder` to seed HMO table
 
     Run Queue with `php artisan queue:work`
 
