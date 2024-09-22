@@ -96,7 +96,7 @@ final class OrderService
     }
 
     /**
-     * Create Order Items and returns
+     * Create Order Items
      * 
      * @param int $order_id
      * @param array<array{
